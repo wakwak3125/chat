@@ -11,8 +11,6 @@ import (
 	_ "github.com/wakwa3125/chat/trace"
 )
 
-const ROOT string = "/"
-
 type templateHandler struct {
 	once     sync.Once
 	filename string
@@ -32,7 +30,9 @@ func main() {
 	
 	r := newRoom()
 	// r.tracer = trace.New(os.Stdout)
-	http.Handle(ROOT, &templateHandler{filename: "chat.html"})
+	http.Handle("/chat", MustAuth(&templateHandler{filename: "chat.html"}))
+	http.Handle("/login", &templateHandler{filename: "login.html"})
+	http.HandleFunc("/auth/", loginHandler)
 	http.Handle("/room", r)
 	
 	go r.run()
