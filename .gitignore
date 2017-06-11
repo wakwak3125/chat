@@ -64,3 +64,4 @@ fabric.properties
 /.idea/chat.iml
 /.idea/modules.xml
 /.idea/workspace.xml
+/secrets.go
