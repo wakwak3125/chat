@@ -4,7 +4,7 @@ import (
 	"github.com/gorilla/websocket"
 	"net/http"
 	"log"
-	"github.com/wakwa3125/trace"
+	"github.com/wakwa3125/chat/trace"
 )
 
 type room struct {

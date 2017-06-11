@@ -8,7 +8,7 @@ import (
 	"path/filepath"
 	"sync"
 	"os"
-	"github.com/wakwa3125/trace"
+	"github.com/wakwa3125/chat/trace"
 )
 
 const ROOT string = "/"
