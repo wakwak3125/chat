@@ -1,12 +1,14 @@
 package main
 
 import (
+	"flag"
 	"html/template"
 	"log"
 	"net/http"
 	"path/filepath"
 	"sync"
-	"flag"
+	"os"
+	"github.com/wakwa3125/trace"
 )
 
 const ROOT string = "/"
@@ -29,6 +31,7 @@ func main() {
 	flag.Parse()
 	
 	r := newRoom()
+	r.tracer = trace.New(os.Stdout)
 	http.Handle(ROOT, &templateHandler{filename: "chat.html"})
 	http.Handle("/room", r)
 	
