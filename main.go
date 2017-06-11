@@ -7,8 +7,8 @@ import (
 	"net/http"
 	"path/filepath"
 	"sync"
-	"os"
-	"github.com/wakwa3125/chat/trace"
+	_ "os"
+	_ "github.com/wakwa3125/chat/trace"
 )
 
 const ROOT string = "/"
