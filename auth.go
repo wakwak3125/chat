@@ -1,10 +1,10 @@
 package main
 
 import (
+	"log"
 	"net/http"
 	"strings"
-	"log"
-	"fmt"
+
 	"github.com/stretchr/gomniauth"
 )
 
@@ -18,7 +18,6 @@ func (h *authHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Location", "/login")
 		w.WriteHeader(http.StatusTemporaryRedirect)
 	} else if err != nil {
-		//よくわらない何かが発生した
 		panic(err.Error())
 	} else {
 		h.next.ServeHTTP(w, r)
@@ -35,18 +34,18 @@ func loginHandler(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			log.Fatalln("認証失敗: ", provider, "-", err)
 		}
-		loginUrl, err := provider.GetBeginAuthURL(nil, nil)
+		loginURL, err := provider.GetBeginAuthURL(nil, nil)
 		if err != nil {
 			log.Fatalln("URLの呼び出し中にエラー: ", provider, "-", err)
 		}
-		w.Header().Set("Location", loginUrl)
+		w.Header().Set("Location", loginURL)
 		w.WriteHeader(http.StatusTemporaryRedirect)
 	default:
 		w.WriteHeader(http.StatusNotFound)
-		fmt.Fprint(w, "アクション'%s'には非対応です", action)
 	}
 }
 
+// MustAuth To check request is authenticated.
 func MustAuth(handler http.Handler) http.Handler {
 	return &authHandler{next: handler}
 }
